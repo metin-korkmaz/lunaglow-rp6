@@ -1,0 +1,25 @@
+# Built artifacts
+build/
+.gradle/
+.kotlin/
+local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.cxx/
+
+# Signing
+*.keystore
+*.jks
+keystore.properties
+release-keystore/
+*.apk
+
+# OS
+.DS_Store
+Thumbs.db
+
+.omo/run-continuation/
+.omo/ralph-loop.local.md
