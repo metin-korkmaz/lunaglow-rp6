@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">LunaGlow</string>
+
+    <!-- Diagnostics screen -->
+    <string name="diag_title">LunaGlow — Gate H Diagnostics</string>
+    <string name="diag_readonly_notice">Read-only hardware capability probe. No LED values are written.</string>
+    <string name="diag_idle_hint">No probe results yet. On a real RP6, tap Run Hardware Probe.</string>
+    <string name="diag_running_hint">Running read-only probe on Dispatchers.IO…</string>
+
+    <!-- Primary action -->
+    <string name="action_run_probe">Run Hardware Probe</string>
+    <string name="action_probing">Probing…</string>
+    <string name="action_probe_a11y">Run the read-only hardware capability probe</string>
+    <string name="action_probing_a11y">Probe is running, please wait</string>
+    <string name="action_share_probe">Share Probe Report</string>
+    <string name="share_probe_subject">LunaGlow RP6 probe report</string>
+    <string name="share_probe_chooser">Share probe report with</string>
+
+    <!-- Status banners -->
+    <string name="status_success_ok">Probe completed successfully.</string>
+    <string name="status_success_a11y">Success: probe completed with all essential enumeration passing.</string>
+    <string name="status_partial">Probe completed with errors. Essential enumeration failed.</string>
+    <string name="status_partial_a11y">Partial failure: probe finished but essential enumeration failed. See the report below for details.</string>
+    <string name="status_failed_prefix">Probe failed: %1$s</string>
+    <string name="status_failed_a11y">Probe failed with error: %1$s</string>
+
+    <!-- Sections -->
+    <string name="section_device">Device</string>
+    <string name="section_pserver">PServerBinder</string>
+    <string name="section_led_nodes">LED Nodes (%1$d)</string>
+    <string name="section_topology">Topology</string>
+    <string name="section_driver">Driver Selection</string>
+    <string name="section_warnings">Warnings (%1$d)</string>
+
+    <!-- Labels -->
+    <string name="label_model">Model</string>
+    <string name="label_build">Build</string>
+    <string name="label_available">Available</string>
+    <string name="label_left_node">Left node</string>
+    <string name="label_right_node">Right node</string>
+    <string name="label_max_brightness">Max brightness</string>
+    <string name="label_multi_index">Multi-index</string>
+    <string name="label_selected">Selected</string>
+    <string name="label_node_max">max=%1$d</string>
+    <string name="label_node_index">idx=%1$s</string>
+
+    <!-- Values -->
+    <string name="value_unconfirmed">unconfirmed</string>
+    <string name="value_none_discovered">None discovered.</string>
+    <string name="value_yes">YES</string>
+    <string name="value_no">NO</string>
+    <string name="value_no_degraded">NO (degraded)</string>
+    <string name="value_dash">—</string>
+
+    <string name="capture_channel_name">Screen color capture</string>
+    <string name="capture_channel_description">Shows when LunaGlow is sampling on-screen colors locally.</string>
+    <string name="capture_notification_title">LunaGlow is sampling the screen</string>
+    <string name="capture_notification_text">Frames stay on this device and are used only to derive LED colors.</string>
+    <string name="action_stop_capture">Stop</string>
+    <string name="action_start_capture">Start ambient capture</string>
+    <string name="action_open_diagnostics">Open hardware diagnostics</string>
+    <string name="action_back_to_main">Back to ambient controls</string>
+    <string name="action_continue">Continue</string>
+    <string name="main_title">LunaGlow</string>
+    <string name="main_privacy_notice">Screen frames are processed only in memory on this device. They are never stored or uploaded.</string>
+    <string name="capture_status_idle">Capture is idle</string>
+    <string name="capture_status_starting">Waiting for the first frame…</string>
+    <string name="capture_status_active">Capture active · %1$d frames processed</string>
+    <string name="capture_status_error">Capture error: %1$s</string>
+    <string name="label_left_color">Left screen color</string>
+    <string name="label_right_color">Right screen color</string>
+    <string name="color_preview_a11y">%1$s, red %2$d, green %3$d, blue %4$d</string>
+    <string name="onboarding_title">Ambient light, kept private</string>
+    <string name="onboarding_intro">LunaGlow samples the visible screen to derive colors for the two stick rings.</string>
+    <string name="onboarding_capture">• Android asks for screen-capture consent each time a new session starts.</string>
+    <string name="onboarding_local">• Captured pixels stay in memory and never leave this device.</string>
+    <string name="onboarding_notification">• A persistent notification remains visible while capture is active.</string>
+</resources>
