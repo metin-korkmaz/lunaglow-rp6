@@ -4,17 +4,18 @@ import dev.lunaglow.probe.LedNodeInfo
 import dev.lunaglow.probe.ProbeReport
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class LedDriverFactoryTest {
 
     @Test
-    fun `returns NoOp when PServer available`() {
+    fun `returns Retroid settings driver when PServer available`() {
         val report = makeReport(pServerAvailable = true, nodeNames = listOf("rgb_left_r"))
         val driver = LedDriverFactory.create(report)
 
-        assertEquals("NoOp", driver.driverName)
-        assertFalse(driver.isAvailable)
+        assertEquals("RetroidSettings", driver.driverName)
+        assertTrue(driver.isAvailable)
     }
 
     @Test
