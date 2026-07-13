@@ -64,6 +64,7 @@ class AmbientLedCoordinatorTest {
         assertFalse(coordinator.offer(colors(10), 1L))
         assertEquals("write failed", coordinator.failureMessage)
         assertFalse(coordinator.offer(colors(20), 2_000_000_000L))
+        coordinator.stop()
         assertEquals(1, driver.writeAttempts)
     }
 
@@ -109,7 +110,10 @@ class AmbientLedCoordinatorTest {
 
         override fun setRightColor(r: Int, g: Int, b: Int) = Unit
         override fun setBrightness(brightness: Int) = Unit
-        override fun turnOff() = Unit
+        override fun turnOff() {
+            writeAttempts += 1
+            error("write failed")
+        }
         override fun close() = Unit
     }
 }

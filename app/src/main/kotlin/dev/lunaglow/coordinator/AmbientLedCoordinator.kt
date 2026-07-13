@@ -43,10 +43,12 @@ class AmbientLedCoordinator(
     }
 
     fun stop() {
-        try {
-            driver.turnOff()
-        } catch (error: Exception) {
-            failureMessage = error.message ?: error.javaClass.simpleName
+        if (failureMessage == null) {
+            try {
+                driver.turnOff()
+            } catch (error: Exception) {
+                failureMessage = error.message ?: error.javaClass.simpleName
+            }
         }
         lastWriteNanos = null
         lastColors = null
