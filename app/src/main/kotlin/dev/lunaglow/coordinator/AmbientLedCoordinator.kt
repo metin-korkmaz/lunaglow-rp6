@@ -31,8 +31,14 @@ class AmbientLedCoordinator(
         if (lastColors?.let { isInsignificant(it, colors) } == true) return false
 
         try {
-            driver.setLeftColor(colors.left.red, colors.left.green, colors.left.blue)
-            driver.setRightColor(colors.right.red, colors.right.green, colors.right.blue)
+            driver.setColors(
+                colors.left.red,
+                colors.left.green,
+                colors.left.blue,
+                colors.right.red,
+                colors.right.green,
+                colors.right.blue,
+            )
         } catch (error: Exception) {
             failureMessage = error.message ?: error.javaClass.simpleName
             return false

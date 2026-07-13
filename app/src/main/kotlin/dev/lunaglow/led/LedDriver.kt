@@ -22,6 +22,18 @@ interface LedDriver {
      */
     fun setRightColor(r: Int, g: Int, b: Int)
 
+    fun setColors(
+        leftR: Int,
+        leftG: Int,
+        leftB: Int,
+        rightR: Int,
+        rightG: Int,
+        rightB: Int,
+    ) {
+        setLeftColor(leftR, leftG, leftB)
+        setRightColor(rightR, rightG, rightB)
+    }
+
     /**
      * Sets a global brightness multiplier (0–255) that scales all subsequent writes.
      */
