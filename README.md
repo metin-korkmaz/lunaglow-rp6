@@ -11,12 +11,13 @@ rings. It does not use AmbiLuna code, assets, or branding.
 - MediaProjection foreground service using a 160×90 `ImageReader` at 15 Hz.
 - Left/right saturation-weighted color extraction and EMA smoothing.
 - Rate-limited LED coordinator with a safe `NoOp` fallback.
-- PServerBinder driver stays disabled until a physical RP6 report confirms
-  exact left/right nodes and RGB channel order.
+- PServerBinder driver uses the RP6 vendor `Settings.System` LED keys and
+  restores the user's original color/brightness when capture stops.
 - GitHub Actions CI/release workflows and a prepared latest-release QR code.
 
-Gate H is still open: a physical RP6 must run the diagnostics and return the
-shared probe report before hardware writes are enabled for its topology.
+Gate H is still open: a physical RP6 must verify that its firmware exposes
+`PServerBinder` and the vendor joystick-color setting before hardware support
+is considered proven.
 
 ## Build
 

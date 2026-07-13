@@ -28,7 +28,7 @@ The working name is **LunaGlow** to avoid copying AmbiLuna's name or branding. N
 ### Must be verified on the actual device
 
 - Presence and behavior of `PServerBinder` on the installed RP6 firmware.
-- Exact LED sysfs node names, channel ordering, and left/right mapping.
+- Presence of the RP6 vendor joystick-color and brightness settings.
 - Whether stock firmware offers a unified `multi_intensity` node or individual RGB channels.
 - Stability of LED writes at 10–20 updates per second.
 
@@ -73,7 +73,8 @@ No exact node path will be hard-coded before the device probe succeeds.
 ### LED layer
 
 - `LedDriver` interface: probe, set left/right color, set brightness, turn off, close.
-- `PServerBinderLedDriver`: primary stock-firmware implementation.
+- `RetroidSettingsLedDriver`: primary stock-firmware implementation using the
+  vendor's fixed joystick color and brightness settings through PServerBinder.
 - `DirectSysfsLedDriver`: enabled only if the probe proves nodes writable.
 - `NoOpLedDriver`: safe degraded mode with diagnostics.
 - `LedTopology`: device-discovered paths, channel order, maximum brightness, and left/right mapping.
@@ -95,7 +96,8 @@ No exact node path will be hard-coded before the device probe succeeds.
 3. Provide explicit user-triggered static tests: left red, right blue, both off.
 4. Record exact nodes/channel order in a structured, exportable report.
 
-**Pass:** both stick rings can be independently controlled on stock firmware without Magisk.
+**Pass:** both stick rings can be independently controlled through the vendor
+settings on stock firmware without Magisk.
 
 **Stop:** neither PServerBinder nor a safe writable interface works. Do not build the full capture pipeline until a viable driver exists.
 
@@ -151,7 +153,7 @@ app/src/main/kotlin/.../
     ColorSmoother.kt
   led/
     LedDriver.kt
-    PServerBinderLedDriver.kt
+    RetroidSettingsLedDriver.kt
     DirectSysfsLedDriver.kt
     NoOpLedDriver.kt
     LedTopology.kt
@@ -178,7 +180,8 @@ docs/
 - RGB/channel-order conversion and brightness clamping.
 - EMA convergence, black-frame policy, change coalescing, and rate limiting.
 - Probe-result-to-driver selection.
-- Shell command construction from validated topology only.
+- Shell command construction from fixed vendor setting names and generated
+  numeric/ARGB values only.
 
 ### Instrumentation/emulator tests
 
@@ -219,7 +222,8 @@ Firebase App Distribution is not preferred because direct binary links expire an
 ## 10. Principal Risks
 
 - **Firmware removes/restricts PServerBinder:** retain capability detection, fail safely, document compatible firmware; consider Shizuku only as a later opt-in fallback.
-- **Unknown LED topology:** hardware gate must precede integration and persist discovered mappings.
+- **Vendor setting changes:** self-gate on the joystick color key and degrade
+  safely if a firmware update removes or renames it.
 - **High-frequency privileged shell overhead:** benchmark static writes early, rate-limit updates, and investigate a persistent vendor-side command only if evidenced and safe.
 - **MediaProjection UX:** consent is per capture session on newer Android; design startup around this rather than trying to bypass it.
 - **Signing-key loss:** encrypted offline backups are mandatory before the first public APK.

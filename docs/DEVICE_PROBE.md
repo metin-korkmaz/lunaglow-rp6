@@ -10,5 +10,6 @@ independently without Magisk.
 4. Select Share Probe Report and return the exported text.
 
 The report identifies `PServerBinder`, LED-class nodes, channel metadata, and
-permissions. LunaGlow will not enable a writable driver until the report is
-reviewed and static left/right color tests are added for the confirmed topology.
+permissions. LunaGlow's RP6 driver writes only the vendor's fixed
+`joystick_led_light_picker_color` and `led_light_brightness_percent` settings;
+the physical test confirms those settings reach the two stick rings correctly.
