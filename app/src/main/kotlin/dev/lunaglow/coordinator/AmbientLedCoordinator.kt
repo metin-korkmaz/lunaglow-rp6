@@ -13,6 +13,8 @@ class AmbientLedCoordinator(
     private val minimumIntervalNanos: Long
     private var lastWriteNanos: Long? = null
     private var lastColors: ScreenColors? = null
+    var failureMessage: String? = null
+        private set
 
     init {
         require(updatesPerSecond > 0)
@@ -21,22 +23,31 @@ class AmbientLedCoordinator(
     }
 
     fun offer(colors: ScreenColors, timestampNanos: Long): Boolean {
-        if (!driver.isAvailable) return false
+        if (!driver.isAvailable || failureMessage != null) return false
         val previousTime = lastWriteNanos
         if (previousTime != null && timestampNanos >= previousTime &&
             timestampNanos - previousTime < minimumIntervalNanos
         ) return false
         if (lastColors?.let { isInsignificant(it, colors) } == true) return false
 
-        driver.setLeftColor(colors.left.red, colors.left.green, colors.left.blue)
-        driver.setRightColor(colors.right.red, colors.right.green, colors.right.blue)
+        try {
+            driver.setLeftColor(colors.left.red, colors.left.green, colors.left.blue)
+            driver.setRightColor(colors.right.red, colors.right.green, colors.right.blue)
+        } catch (error: Exception) {
+            failureMessage = error.message ?: error.javaClass.simpleName
+            return false
+        }
         lastWriteNanos = timestampNanos
         lastColors = colors
         return true
     }
 
     fun stop() {
-        driver.turnOff()
+        try {
+            driver.turnOff()
+        } catch (error: Exception) {
+            failureMessage = error.message ?: error.javaClass.simpleName
+        }
         lastWriteNanos = null
         lastColors = null
     }

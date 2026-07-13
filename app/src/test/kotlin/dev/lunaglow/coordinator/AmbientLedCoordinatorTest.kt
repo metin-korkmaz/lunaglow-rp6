@@ -56,6 +56,17 @@ class AmbientLedCoordinatorTest {
         assertTrue(coordinator.offer(colors(20), 101L))
     }
 
+    @Test
+    fun `driver failure is exposed and prevents repeated privileged writes`() {
+        val driver = ThrowingDriver()
+        val coordinator = AmbientLedCoordinator(driver)
+
+        assertFalse(coordinator.offer(colors(10), 1L))
+        assertEquals("write failed", coordinator.failureMessage)
+        assertFalse(coordinator.offer(colors(20), 2_000_000_000L))
+        assertEquals(1, driver.writeAttempts)
+    }
+
     private fun colors(value: Int) = ScreenColors(
         RgbColor(value, value, value),
         RgbColor(value, value, value),
@@ -83,6 +94,22 @@ class AmbientLedCoordinatorTest {
             offCalls += 1
         }
 
+        override fun close() = Unit
+    }
+
+    private class ThrowingDriver : LedDriver {
+        override val driverName = "throwing"
+        override val isAvailable = true
+        var writeAttempts = 0
+
+        override fun setLeftColor(r: Int, g: Int, b: Int) {
+            writeAttempts += 1
+            error("write failed")
+        }
+
+        override fun setRightColor(r: Int, g: Int, b: Int) = Unit
+        override fun setBrightness(brightness: Int) = Unit
+        override fun turnOff() = Unit
         override fun close() = Unit
     }
 }
