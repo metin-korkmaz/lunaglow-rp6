@@ -113,6 +113,14 @@ private fun CaptureStatusCard(state: CaptureState) {
                 fontWeight = FontWeight.SemiBold,
             )
             val colors = (state as? CaptureState.Capturing)?.colors
+            val warning = (state as? CaptureState.Capturing)?.ledWarning
+            if (warning != null) {
+                Text(
+                    text = stringResource(R.string.led_status_degraded, warning),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),

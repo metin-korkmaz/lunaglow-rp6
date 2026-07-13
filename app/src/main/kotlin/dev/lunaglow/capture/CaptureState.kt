@@ -8,7 +8,11 @@ import kotlinx.coroutines.flow.asStateFlow
 sealed interface CaptureState {
     data object Idle : CaptureState
     data object Starting : CaptureState
-    data class Capturing(val colors: ScreenColors, val processedFrames: Long) : CaptureState
+    data class Capturing(
+        val colors: ScreenColors,
+        val processedFrames: Long,
+        val ledWarning: String? = null,
+    ) : CaptureState
     data class Error(val message: String) : CaptureState
 }
 

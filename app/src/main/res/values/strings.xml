@@ -67,6 +67,7 @@
     <string name="capture_status_starting">Waiting for the first frame…</string>
     <string name="capture_status_active">Capture active · %1$d frames processed</string>
     <string name="capture_status_error">Capture error: %1$s</string>
+    <string name="led_status_degraded">LED output disabled: %1$s</string>
     <string name="label_left_color">Left screen color</string>
     <string name="label_right_color">Right screen color</string>
     <string name="color_preview_a11y">%1$s, red %2$d, green %3$d, blue %4$d</string>

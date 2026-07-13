@@ -134,8 +134,11 @@ class ScreenCaptureService : Service() {
                         ),
                     )
                     processedFrames += 1
-                    ledCoordinator?.offer(colors, System.nanoTime())
-                    CaptureStateStore.update(CaptureState.Capturing(colors, processedFrames))
+                    val coordinator = ledCoordinator
+                    coordinator?.offer(colors, System.nanoTime())
+                    CaptureStateStore.update(
+                        CaptureState.Capturing(colors, processedFrames, coordinator?.failureMessage),
+                    )
                 } catch (error: Exception) {
                     CaptureStateStore.update(
                         CaptureState.Error(error.message ?: "Unable to process captured frame."),
